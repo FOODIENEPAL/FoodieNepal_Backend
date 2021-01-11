@@ -1,6 +1,7 @@
 const express = require('express');
 const Resturant = require('../models/resturant');
 const router = express.Router();
+const Food = require('../models/food');
 
 router.route('/')
 .get((req,res,next)=>{
@@ -64,12 +65,23 @@ router.route('/:id')
 })
 
 .delete((req,res,next)=>{
-    Resturant.findByIdAndDelete(req.params.id)
-    .then((resturant)=>{
-        res.statusCode=200;
-        res.json(resturant);
-    })
-    .catch((err)=>(next));
+    Food.find({restaurant:req.params.id})
+        .then((rest)=>{
+            if(rest!=null){
+                Food.deleteMany({restaurant:req.params.id})
+                    .then((rest)=>{
+                        res.statusCode(201);
+                        res.json("Food related with restaurant deleted")
+                    })
+                    .catch(next);
+                }
+                Resturant.findByIdAndDelete(req.params.id)
+                .then((resturant)=>{
+                    res.statusCode=200;
+                    res.json(resturant);
+                })
+        })
+        .catch(next);
 });
 
 module.exports=router;

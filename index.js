@@ -9,6 +9,8 @@ const auth = require('./auth');
 const cors = require('cors');
 const dotenv = require("dotenv").config();
 const foodCat = require('./routes/foodCategory');
+const food = require('./routes/food');
+
 
    
   //Connecting with Mongodb serve
@@ -32,6 +34,8 @@ const foodCat = require('./routes/foodCategory');
   app.use('/upload',uploadRouter);
   app.use('/resturants',resturantRouter);
   app.use('/foodCat',foodCat);
+  app.use('/foods', food);
+
 
 
   app.use(auth.verifyUser);
