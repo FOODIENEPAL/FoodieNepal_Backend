@@ -38,7 +38,7 @@ const food = require('./routes/food');
 
 
 
-  app.use(auth.verifyUser);
+  // app.use(auth.verifyUser);
 
 
   //Listening to Port
