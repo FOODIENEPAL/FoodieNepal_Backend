@@ -49,17 +49,11 @@ router.post('/login', (req, res, next) => {
     User.findOne({email: req.body.email})
         .then((user) => {
             if (user==null) {
-                // let err = new Error('User not found!');
-                // err.status = 401;
-                // return next(err);
                 res.json({status:'401'})
             } else {
                 bcrypt.compare(req.body.password, user.password)
                     .then((isMatch) => {
                         if (!isMatch) {
-                            // let err = new Error('Password does not match!');
-                            // err.status = 402;
-                            // return next(err);
                             res.json({status:'401'})
                         }
                         let token = jwt.sign({ _id: user._id,admin:user.admin }, process.env.SECRET);

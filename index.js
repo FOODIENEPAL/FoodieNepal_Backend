@@ -29,16 +29,11 @@ const food = require('./routes/food');
   app.use(morgan('tiny'));
   app.use(express.json());
 
-
   app.use('/users',userRouter);
   app.use('/upload',uploadRouter);
   app.use('/resturants',resturantRouter);
   app.use('/foodCat',foodCat);
   app.use('/foods', food);
-
-
-
-  // app.use(auth.verifyUser);
 
 
   //Listening to Port

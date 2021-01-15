@@ -81,6 +81,37 @@ router.route('/')
      })
      .catch((err)=> next(err));
  })
+
+ //search food by category with id
+ router.get('/searchByCat/:catId', (req, res, next)=>{
+    Food.find({category: req.params.catId})
+    .populate({path:'category'})
+    .then((food) => {
+       res.json(food);
+   })
+   .catch((err) => next(err));
+})
+
+//search restaurant by id
+router.get('/searchByRes/:resId', (req, res, next)=>{
+   Food.find({restaurant: req.params.resId})
+   .populate({path:'restaurant'})
+   .then((food) => {
+      res.json(food);
+  })
+  .catch((err) => next(err));
+})
+
+//search food by name
+router.get('/searchByName/:name', (req, res, next)=>{
+    console.log(req.params.name)
+   Food.find({foodname: new RegExp(req.params.name, 'i')})
+    .then((food) => {
+        res.json({food:food});
+        })
+    .catch((err) => next(err));
+})
+
 module.exports= router;
 
 
