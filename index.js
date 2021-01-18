@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const userRouter = require('./routes/user');
 const uploadRouter = require('./routes/uploads');
 const resturantRouter = require('./routes/resturant');
+const cartRouter = require('./routes/cart');
 const app = express();
 const auth = require('./auth');
 const cors = require('cors');
@@ -35,6 +36,8 @@ const food = require('./routes/food');
   app.use('/foodCat',foodCat);
   app.use('/foods', food);
 
+  app.use(auth.verifyUser);
+  app.use('/cart',cartRouter);
 
   //Listening to Port
 
