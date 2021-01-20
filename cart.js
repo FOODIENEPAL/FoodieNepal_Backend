@@ -1,25 +1,61 @@
-const mongoose = require('mongoose');
-const cartSchema = new mongoose.Schema({
-    food:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Food"
-    },
-    totalprice:{
+const express = require("express");
+const Cart = require("../models/cart");
+const auth = require('../auth');
 
-        type:Number
-    },
+const router = express.Router();
 
-    notes:{
-        type:String
-    },
-    user:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
-    quanity : {
-        type: Number
-    }
+//ROUTES FOR OPERATING Cart
+router.route("/")
+    .get(auth.verifyUser, (req, res, next) => {
+        Cart.find({ user: req.user._id })
+            .populate({
+                path: 'food'
+            })
+            .populate({
+                path: 'food.foodname'
+            })
+            .then((cart) => {
+                if (cart == null) throw new Error("Nothing at Cart yet.");
+                res.json(cart);
+            }).catch(next)
+    })
 
-},{timestamps:true});
+    .post(auth.verifyUser,(req, res, next) => {
+        let cart = new Cart(req.body);
+        cart.user = req.user._id;
+        cart.save()
+            .then((cart) => {
+                res.json(cart);
+            }).catch(next)
+    })
 
-module.exports = mongoose.model('Cart',cartSchema);
+    .put((req, res, next) => {
+        res.statusCode = 405;
+        res.json({ message: "Method not allowed" });
+    })
+
+//ROUTES FOR OPERATING SPECIFIC Cart
+router.route('/:wid')
+    .get(auth.verifyUser, (req, res, next) => {
+        Cart.findOne({ user: req.user._id, _id: req.params.wid })
+        .populate({
+            path: 'food'
+        })
+        .populate({
+            path: 'food.foodname'
+        })
+        .then((cart) => {
+            res.json(cart);
+        })
+        .catch((err) => next(err));
+
+    })
+    .put(auth.verifyUser, (req, res, next) => {
+        Cart.findByIdAndUpdate(req.params.wid, { $set: req.body }, { new: true })
+        .then((cart) => {
+            res.json(cart);
+        }).catch(next);
+    })
+   
+
+module.exports = router;
