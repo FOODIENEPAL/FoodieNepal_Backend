@@ -35,7 +35,7 @@ router.post('/signup', (req, res, next) => {
                         admin:false
                     }).then((user) => {
                         let token = jwt.sign({_id:user._id}, process.env.SECRET);
-                        res.json({ status: "success", token: token });
+                        res.json({ status: "success", token: token, fullname: user.fullname});
                     }).catch(next);
                 }
                 else{
@@ -57,7 +57,7 @@ router.post('/login', (req, res, next) => {
                             res.json({status:'401'})
                         }
                         let token = jwt.sign({ _id: user._id,admin:user.admin }, process.env.SECRET);
-                        res.json({ status: 'success', token: token, role: user.role, email: user.email });
+                        res.json({ status: 'success', token: token, role: user.role, fullname: user.fullname });
                     }).catch(next);
             }
         }).catch(next);
