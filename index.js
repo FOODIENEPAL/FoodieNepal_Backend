@@ -5,6 +5,7 @@ const userRouter = require('./routes/user');
 const uploadRouter = require('./routes/uploads');
 const resturantRouter = require('./routes/resturant');
 const cartRouter = require('./routes/cart');
+const orderRouter = require('./routes/order');
 const app = express();
 const auth = require('./auth');
 const cors = require('cors');
@@ -38,6 +39,7 @@ const food = require('./routes/food');
 
   app.use(auth.verifyUser);
   app.use('/cart',cartRouter);
+  app.use('/order',orderRouter);
 
   //Listening to Port
 
