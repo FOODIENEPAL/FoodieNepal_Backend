@@ -92,7 +92,7 @@ router.route('/')
    .catch((err) => next(err));
 })
 
-//search restaurant by id
+//search food by restaurant id
 router.get('/searchByRes/:resId', (req, res, next)=>{
    Food.find({restaurant: req.params.resId})
    .populate({path:'restaurant'})

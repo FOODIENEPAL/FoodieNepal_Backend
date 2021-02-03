@@ -20,8 +20,6 @@ module.exports.verifyUser = (req, res, next) => {
             req.user = user;
             next();
         })
-
-        
 }
 module.exports.verifyAdmin = (req, res, next) => {
     if (!req.user) {
