@@ -81,8 +81,7 @@ router.put('/me', auth.verifyUser, (req, res, next) => {
         }).catch(next);
 });
 
-router.post('/verifyPassword', auth.verifyUser, (req, res, next) => {
-    console.log("check data : "+req.body.password, req.body.id)
+router.post('/verifyPassword', (req, res, next) => {
     User.findById(req.body.id)
         .then((user) => {
             bcrypt.compare(req.body.password, user.password)
@@ -96,6 +95,22 @@ router.post('/verifyPassword', auth.verifyUser, (req, res, next) => {
                 }).catch(next);
         })
         .catch(next);
+})
+
+router.put('/updatePassword', (req, res, next) => {
+    let password = req.body.password;
+    bcrypt.hash(password, 10, function (err, hash) {
+        if (err) {
+            let err =  new Error('Could not hash!');
+            err.status = 500;
+            return next(err);
+        }
+        User.findByIdAndUpdate(req.body.id, { $set: {password:hash} }, { new: true })
+            .then((user) => {
+                res.json({status:200})
+            })
+            .catch(next);
+    })
 })
 
 module.exports = router;
