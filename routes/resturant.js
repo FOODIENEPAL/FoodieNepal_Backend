@@ -16,7 +16,7 @@ router.route('/')
     Resturant.create({
         resturant_name:req.body.resturant_name,
         resturant_address: req.body.resturant_address,
-        food_item:req.body.food_item,
+        // food_item:req.body.food_item,
         res_image:req.body.res_image
     })
     .then((resturant)=>{
