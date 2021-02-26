@@ -17,6 +17,6 @@ beforeAll(async() => {
 //Tear down
 afterAll(async() => {
     console.log('Disconnecting ...');
-    // await mongoose.connection.dropDatabase();
+    await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
 })

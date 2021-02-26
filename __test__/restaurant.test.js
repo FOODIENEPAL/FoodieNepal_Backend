@@ -7,7 +7,7 @@ var ObjectId = require('mongodb').ObjectID;
 require('./setup');
 
 describe('Test of Restaurant Route', () => {
-    test('it should add a new restuarant',()=>{
+    test('it should add a new restaurant',()=>{
         return restaurantRouter.create({    
             _id: ObjectId('6026324d4eccbc17b88a9aeb'),
             resturant_name:'KFC',
@@ -20,7 +20,7 @@ describe('Test of Restaurant Route', () => {
         })
     })
 
-    test('it should retrieve the restuarant details',()=>{
+    test('it should retrieve the restaurant details',()=>{
         return restaurantRouter.findById({_id: ObjectId('6026324d4eccbc17b88a9aeb')})
         .then((Response)=>{
             expect(Response.resturant_name).toBe('KFC')
@@ -29,7 +29,7 @@ describe('Test of Restaurant Route', () => {
         })
     })
 
-    test('it should update the restuarant details',()=>{
+    test('it should update the restaurant details',()=>{
         return restaurantRouter.findByIdAndUpdate({_id: ObjectId('6026324d4eccbc17b88a9aeb')},
         {
             resturant_name:'Bajeko Sekuwa',
@@ -43,7 +43,7 @@ describe('Test of Restaurant Route', () => {
         })
     })
 
-    test('it should retrieve the restuarant',()=>{
+    test('it should retrieve the restaurant',()=>{
         return restaurantRouter.findByIdAndDelete({_id: ObjectId('6026324d4eccbc17b88a9aeb')})
         .then((Response)=>{
             expect(Response._id).toStrictEqual(ObjectId('6026324d4eccbc17b88a9aeb'))
