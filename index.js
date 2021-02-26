@@ -2,11 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
-const userRouter = require('./routes/user');
-const adminRouter = require('./routes/admin');
-const foodRouter = require('./routes/food');
-const uploadRouter = require('./routes/uploads');
-const resturantRouter = require('./routers/resturant');
+const userRouter = require('./routes/User');
+const adminRouter = require('./routes/Admin');
+const foodRouter = require('./routes/Food');
+const uploadRouter = require('./routes/Uploads');
+const resturantRouter = require('./routes/Resturant');
 const dotenv = require('dotenv').config();
 
 

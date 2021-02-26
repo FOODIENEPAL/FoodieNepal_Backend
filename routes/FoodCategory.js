@@ -1,5 +1,5 @@
 const express = require('express');
-const Cat  = require('../models/foodCategory');
+const Cat  = require('../models/FoodCategory');
 const router = express.Router();
 
 router.route('/')

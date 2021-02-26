@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Order = require('../models/order');
+const Order = require('../models/Order');
 const router = express.Router();
-const auth = require('../auth');
-const food = require('../models/food');
+const auth = require('../Auth');
+const food = require('../models/Food');
 
 router.route('/')
 .get(auth.verifyUser, (req, res, next) => {

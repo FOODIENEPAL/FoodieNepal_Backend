@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const router = express.Router();
-const auth = require('../adminauth');
+const auth = require('../Adminauth');
 
 
 router.get('/',(req,res,next)=> {
